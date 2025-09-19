@@ -9,7 +9,7 @@ A Shiny web application to visualize estimated Glomerular Filtration Rate (eGFR)
 ## 🚀 Features
 
 - **Interactive eGFR plots**: Compare an individual creatinine-based eGFR to population percentiles (10th, 25th, 50th, 75th, 90th).  
-- **Multiple equations supported**: CKD-EPI 2009 (without race coefficient), CKD-EPI 2021, EKFC, and Revised Lund-Malmö.  
+- **Multiple equations supported**: CKD-EPI 2021, EKFC, CKD-EPI 2009 (without race coefficient) and Revised Lund-Malmö.  
 - **Percentile computation**: Provides the closest percentile for a given age, sex and eGFR.  
 - **Interpretation guidance**: Suggests clinical considerations based on eGFR and percentile.
 

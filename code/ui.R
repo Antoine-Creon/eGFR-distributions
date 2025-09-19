@@ -109,7 +109,7 @@ dashboardPage(
                   tags$p(
                     "If you experience any issue with the app, please ",
                     tags$a(
-                      href = "https://github.com/Nino-Creon/your-repo/issues",
+                      href = "https://github.com/Nino-Creon/eGFR-distributions/issues",
                       "fill an issue on GitHub",
                       target = "_blank"
                     ),

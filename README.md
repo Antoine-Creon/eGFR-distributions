@@ -1,10 +1,10 @@
-# eGFR Percentiles Explorer
+# eGFR Distribution Explorer
 
-A Shiny web application to visualize estimated Glomerular Filtration Rate (eGFR) percentiles by age, sex, and equation. The app allows users to compare individual eGFR measurements against population-based distributions and provides interpretative guidance.
+A Shiny web application to visualize estimated Glomerular Filtration Rate (eGFR) distributions by age, sex, and equation. The app allows users to compare individual eGFR values against population-based distributions and provides interpretative guidance.
 
-📄 Associated publication: **[Yang Y, et al., Kidney International, 2025]()**
+📄 The scientific basis of this application is presented in the following article: **[Yang Y, et al., Kidney International, 2025]()**
 
-🌐 Interactive tool: **[eGFR percentiles](https://scream.meb.ki.se/egfr-percentiles/)**
+🌐 The interactive tool is available at the following link: **[eGFR percentiles](https://scream.meb.ki.se/egfr-percentiles/)**
 
 ## 🚀 Features
 
@@ -15,5 +15,5 @@ A Shiny web application to visualize estimated Glomerular Filtration Rate (eGFR)
 
 ## Team
 
-This project was led by **[Yuanhang Yang](https://se.linkedin.com/in/yuanhangyang)** as part of his PhD Thesis in the **[Carrero Group](https://ki.se/en/research/research-areas-centres-and-networks/research-groups/cardio-renal-epidemiology-juan-jesus-carreros-research-group?auHash=hhoISq-w5-ly2G1-qevFvi_lSMvpgmWlID4z8IesSCg#tab-start)** at Karolinska Institutet.
+This project was led by **[Yuanhang Yang](https://se.linkedin.com/in/yuanhangyang)** as part of his PhD Thesis in the **[Carrero Group](https://ki.se/en/research/research-areas-centres-and-networks/research-groups/cardio-renal-epidemiology-juan-jesus-carreros-research-group?auHash=hhoISq-w5-ly2G1-qevFvi_lSMvpgmWlID4z8IesSCg#tab-start)** at Karolinska Institutet, Stockholm, Sweden.
 The Shiny App was developed by **[Antoine Créon](https://github.com/Nino-Creon)**.

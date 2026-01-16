@@ -1,4 +1,3 @@
-
 library(ggplot2)
 library(readxl)
 library(here)
@@ -84,8 +83,8 @@ dashboardPage(
               fluidRow(
                 
                 box(title = "Publication", status = "primary", solidHeader = TRUE, width = 12,
-                    "Yang et al. [INSERT REFERENCE], 2025. ",
-                    tags$a(href = "http://link_to_publication.com", "Read the full publication here.", target = "_blank") # Adding a link
+                    "Yang et al., Kidney International, 2026",
+                    tags$a(href = "https://www.kidney-international.org/article/S0085-2538(25)00989-5/fulltext", "Read the full publication here.", target = "_blank") # Adding a link
                 ),
                 
                 box(title = "The team", status = "primary", solidHeader = TRUE, width = 12,
@@ -101,7 +100,7 @@ dashboardPage(
                   title = "Developer", status = "primary", solidHeader = TRUE, width = 12,
                   tags$p(
                     tags$a(
-                      href = "https://github.com/Nino-Creon",
+                      href = "https://github.com/Antoine-Creon",
                       "Antoine Créon.",
                       target = "_blank"
                     )
@@ -109,7 +108,7 @@ dashboardPage(
                   tags$p(
                     "If you experience any issue with the app, please ",
                     tags$a(
-                      href = "https://github.com/Nino-Creon/eGFR-distributions/issues",
+                      href = "https://github.com/Antoine-Creon/eGFR-distributions/issues",
                       "fill an issue on GitHub",
                       target = "_blank"
                     ),
@@ -150,3 +149,4 @@ dashboardPage(
     )
   )
 )
+

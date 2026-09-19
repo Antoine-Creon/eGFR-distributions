@@ -1,30 +1,3 @@
-library(ggplot2)
-library(readxl)
-library(here)
-library(shiny)
-library(shinydashboard)
-library(thematic)
-library(bslib)
-library(bsicons)
-library(tidyverse)
-
-distribs_for_plot <- read_delim("distribs_for_plot.csv")
-full_perc <- read_delim("distribs_for_indiv.csv")
-
-# Prepare plotting
-custom_colors <- c("#332288", "#117733", "#44AA99", "#88CCEE", "#DDCC77")
-
-custom_lines <- c("solid", "solid", "solid", "solid", "solid")
-
-legend <- c(
-  "90th percentile",
-  "75th percentile",
-  "50th percentile (median)",
-  "25th percentile",
-  "10th percentile"
-)
-
-
 ################################################################################
 ###                                   UI                                     ###
 ################################################################################

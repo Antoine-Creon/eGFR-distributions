@@ -14,6 +14,13 @@ page_navbar(
     "
     #Plot, #Plot > div { height: 100% !important; width: 100% !important; }
     #Plot svg.ggiraph-svg { height: 100% !important; width: 100% !important; }
+
+    /* Below bslib's sm breakpoint the sidebar layout becomes a flow layout,
+       which drops the flex fill - the chart card would otherwise collapse to
+       its 300px floor and letterbox the taller mobile SVG. */
+    @media (max-width: 575.98px) {
+      .chart-body { min-height: 420px; }
+    }
   "
   ))),
 
@@ -27,6 +34,10 @@ page_navbar(
       sidebar = sidebar(
         title = "Input parameters",
         width = 300,
+        # On a phone the collapsed sidebar is an unlabeled toggle button, so
+        # the inputs are invisible until tapped. "always-above" stacks them
+        # over the chart and hides the toggle; desktop is unaffected.
+        open = list(desktop = "open", mobile = "always-above"),
         selectInput(
           "sex",
           "Sex",
@@ -72,6 +83,7 @@ page_navbar(
             "Population-based estimated glomerular filtration rate distribution"
           ),
           card_body(
+            class = "chart-body",
             padding = 0,
             min_height = "300px",
             girafeOutput("Plot", width = "100%", height = "100%")

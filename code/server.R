@@ -10,6 +10,18 @@ function(input, output, session) {
     if (identical(input$color_mode, "dark")) "dark" else "light"
   })
 
+  # ggiraph rescales the SVG to its container, so width_svg is what sets the
+  # apparent text size: 8 inches shown in a 360px phone renders base_size 13 at
+  # about 6pt. Bucketing the measured width to a boolean - rather than feeding
+  # the width itself to the plot - keeps the bindCache key stable, so an
+  # ordinary resize is a cache hit instead of a re-render. 576px is bslib's own
+  # sm breakpoint, the same one that stacks the sidebar above the chart.
+  is_mobile <- reactive({
+    w <- session$clientData$output_Plot_width
+    !is.null(w) && w < 576
+  }) |>
+    debounce(250)
+
   # Reactive dataset with mapped values
   filtered_curves <- reactive({
     req(input$sex, input$equation) # Ensure inputs exist
@@ -71,6 +83,7 @@ function(input, output, session) {
     a <- age_in()
     g <- egfr_in()
     pct <- filtered_percentile()
+    mobile <- is_mobile()
 
     y_range <- c(20, 120)
 
@@ -131,7 +144,12 @@ function(input, output, session) {
         y = 62,
         hjust = 0,
         vjust = 0,
-        label = "Chronic kidney disease threshold (60 mL/min/1.73m²)",
+        # Wrapped on a phone: the one-line form overflows a 4.6in plot.
+        label = if (mobile) {
+          "Chronic kidney disease threshold\n(60 mL/min/1.73m²)"
+        } else {
+          "Chronic kidney disease threshold (60 mL/min/1.73m²)"
+        },
         size = 3.1,
         color = pal$muted
       ) +
@@ -162,7 +180,7 @@ function(input, output, session) {
         stroke = 1.4
       ) +
 
-      scale_x_continuous(breaks = seq(40, 100, by = 10)) +
+      scale_x_continuous(breaks = seq(40, 100, by = if (mobile) 20 else 10)) +
       scale_y_continuous(breaks = seq(20, 120, by = 20)) +
       coord_cartesian(xlim = c(40, 100), ylim = y_range, expand = FALSE) +
 
@@ -180,7 +198,10 @@ function(input, output, session) {
 
       labs(
         x = "Age (years)",
-        y = expression("eGFR (mL/min/1.73m"^2 * ")"),
+        # A plotmath superscript opens a visible gap before the 2 in a rotated
+        # axis title. The Unicode character sits tight, and matches the unit as
+        # it is written in the input label and the threshold annotation.
+        y = "eGFR (mL/min/1.73m²)",
         fill = NULL,
         color = NULL
       ) +
@@ -195,6 +216,9 @@ function(input, output, session) {
         axis.text = element_text(color = pal$muted),
         axis.title = element_text(color = pal$muted),
         legend.position = "bottom",
+        # Three entries side by side overflow the narrow mobile plot.
+        legend.direction = if (mobile) "vertical" else "horizontal",
+        legend.box = if (mobile) "vertical" else "horizontal",
         legend.text = element_text(color = pal$ink),
         legend.key.size = unit(0.14, "in"),
         legend.margin = margin(0, 0, 0, 0),
@@ -203,8 +227,11 @@ function(input, output, session) {
 
     girafe(
       ggobj = p,
-      width_svg = 8,
-      height_svg = 5.4,
+      # These set the aspect ratio and, because the SVG is rescaled to its
+      # container, the apparent text size. The narrower mobile canvas is what
+      # makes the labels legible on a phone.
+      width_svg = if (mobile) 4.6 else 8,
+      height_svg = if (mobile) 4.4 else 5.4,
       options = list(
         # Painting the hovered column is what turns it into a crosshair.
         opts_hover(
@@ -239,7 +266,14 @@ function(input, output, session) {
       )
     )
   }) |>
-    bindCache(input$sex, input$equation, age_in(), egfr_in(), color_mode())
+    bindCache(
+      input$sex,
+      input$equation,
+      age_in(),
+      egfr_in(),
+      color_mode(),
+      is_mobile()
+    )
 
   output$percentileValue <- renderText({
     paste0(filtered_percentile(), "th")
